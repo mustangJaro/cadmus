@@ -4,7 +4,7 @@ import styles from "./ProForma.module.css";
 import Card from "./UI/Card";
 import InputForm from "./InputForm/InputForm";
 import CalculatedOutput from "./CalculatedOutput/CalculatedOutput";
-import MonthlyPayment from '../Helpers/Math';
+import MonthlyPayment, { FirstYearLoanCalc } from '../Helpers/Math';
 
 const ProForma = (props) => {
   const [noi, setNOI] = useState(0);
@@ -13,14 +13,22 @@ const ProForma = (props) => {
   const [equity, setEquity] = useState(0);
   const [debtAmount, setDebtAmount] = useState(0);
   const [monthlyPayment, setMonthlyPayment] = useState(0);
+  const [firstYearInterest, setFirstYearInterest] = useState(0);
+  const [firstYearPrincipal, setFirstYearPrincipal] = useState(0);
 
   const onSubmitHandler = (data) => {
-    setDebtAmount(data.investmentAmount * (100 - data.equity) / 100);
+    // add interest and total loan year inputs
+    let debtAmount = data.investmentAmount * (100 - data.equity) / 100;
+    let firstYearLoanValues = FirstYearLoanCalc(debtAmount, 4.5, 30);
+    let noi = data.rentalIncome - data.expenses;
+    setDebtAmount(debtAmount);
     setInvestmentAmount(data.investmentAmount);
-    setNOI(data.rentalIncome - data.expenses)
+    setNOI(noi)
     setCapRate(noi / data.investmentAmount * 100);
     setEquity(data.investmentAmount * data.equity / 100);
     setMonthlyPayment(MonthlyPayment(debtAmount, 4.5, 30))
+    setFirstYearInterest(firstYearLoanValues.interestPayment);
+    setFirstYearPrincipal(firstYearLoanValues.principalPayment);
   };
 
   return (
@@ -36,6 +44,8 @@ const ProForma = (props) => {
           equity={equity}
           debtAmount={debtAmount}
           monthlyPayment={monthlyPayment}
+          firstYearInterest={firstYearInterest}
+          firstYearPrincipal={firstYearPrincipal}
         />
       </Card>
     </>
