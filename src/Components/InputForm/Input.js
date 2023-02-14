@@ -8,7 +8,7 @@ const Input = (props) => {
       <TextField
         required
         className={styles.label}
-        ref={props.valueRef}
+        inputRef={props.valueRef}
         defaultValue={props.defaultValue || ""}
         label={props.label}
       />

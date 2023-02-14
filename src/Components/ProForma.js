@@ -17,8 +17,8 @@ const ProForma = (props) => {
   const [firstYearPrincipal, setFirstYearPrincipal] = useState(0);
 
   const onSubmitHandler = (data) => {
-    let interestRate = data.interestRate;
-    let loanYears = data.loanYears;
+    let interestRate = +data.interestRate;
+    let loanYears = +data.loanYears;
     let debtAmount = data.investmentAmount * (100 - data.equity) / 100;
     let firstYearLoanValues = FirstYearLoanCalc(debtAmount, interestRate, loanYears);
     let noi = data.rentalIncome - data.expenses;
