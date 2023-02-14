@@ -1,6 +1,6 @@
 # Cadmus
 
-This is designed to get some basic idea of a rental investment and its potential.
+This is designed to get some basic idea of a rental investment and its potential. It's available on [the Cadmus website](https://cadmus.onrender.com/)
 
 ## Available Scripts
 
