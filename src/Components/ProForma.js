@@ -17,16 +17,17 @@ const ProForma = (props) => {
   const [firstYearPrincipal, setFirstYearPrincipal] = useState(0);
 
   const onSubmitHandler = (data) => {
-    // add interest and total loan year inputs
+    let interestRate = data.interestRate;
+    let loanYears = data.loanYears;
     let debtAmount = data.investmentAmount * (100 - data.equity) / 100;
-    let firstYearLoanValues = FirstYearLoanCalc(debtAmount, 4.5, 30);
+    let firstYearLoanValues = FirstYearLoanCalc(debtAmount, interestRate, loanYears);
     let noi = data.rentalIncome - data.expenses;
     setDebtAmount(debtAmount);
     setInvestmentAmount(data.investmentAmount);
     setNOI(noi)
     setCapRate(noi / data.investmentAmount * 100);
     setEquity(data.investmentAmount * data.equity / 100);
-    setMonthlyPayment(MonthlyPayment(debtAmount, 4.5, 30))
+    setMonthlyPayment(MonthlyPayment(debtAmount, interestRate, loanYears))
     setFirstYearInterest(firstYearLoanValues.interestPayment);
     setFirstYearPrincipal(firstYearLoanValues.principalPayment);
   };
