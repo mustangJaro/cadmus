@@ -4,6 +4,7 @@ import styles from "./ProForma.module.css";
 import Card from "./UI/Card";
 import InputForm from "./InputForm/InputForm";
 import CalculatedOutput from "./CalculatedOutput/CalculatedOutput";
+import MonthlyPayment from '../Helpers/Math';
 
 const ProForma = (props) => {
   const [noi, setNOI] = useState(0);
@@ -11,14 +12,15 @@ const ProForma = (props) => {
   const [investmentAmount, setInvestmentAmount] = useState(0);
   const [equity, setEquity] = useState(0);
   const [debtAmount, setDebtAmount] = useState(0);
+  const [monthlyPayment, setMonthlyPayment] = useState(0);
 
   const onSubmitHandler = (data) => {
+    setDebtAmount(data.investmentAmount * (100 - data.equity) / 100);
     setInvestmentAmount(data.investmentAmount);
     setNOI(data.rentalIncome - data.expenses)
     setCapRate(noi / data.investmentAmount * 100);
-    setEquity(data.investmentAmount * (100 - data.equity) / 100);
-    setDebtAmount(data.investmentAmount * data.equity / 100);
-    console.log('noi: ' + noi + ', capRate: ' + capRate);
+    setEquity(data.investmentAmount * data.equity / 100);
+    setMonthlyPayment(MonthlyPayment(debtAmount, 4.5, 30))
   };
 
   return (
@@ -33,6 +35,7 @@ const ProForma = (props) => {
           investmentAmount={investmentAmount}
           equity={equity}
           debtAmount={debtAmount}
+          monthlyPayment={monthlyPayment}
         />
       </Card>
     </>
