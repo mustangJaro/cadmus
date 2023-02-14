@@ -1,4 +1,11 @@
+.container {
+  display: flex;
+  justify-content: center;
+}
+
 .calculated-output {
   min-height: 300px;
   background-color: aqua;
+  display: grid;
+  width: 60%;
 }
