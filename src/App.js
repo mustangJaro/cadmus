@@ -4,8 +4,10 @@ import ProForma from "./Components/ProForma";
 
 function App() {
   return (
-    <div className={styles.app}>
-      <ProForma />
+    <div className={styles.container}>
+      <div className={styles.app}>
+        <ProForma />
+      </div>
     </div>
   );
 }

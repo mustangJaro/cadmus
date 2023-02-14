@@ -52,7 +52,7 @@ const InputForm = (props) => {
           label="Expenses"
           defaultValue="10500"
         />
-        <Button variant="contained" onClick={onSubmitHandler}>
+        <Button className={styles['calculate-button']} variant="contained" onClick={onSubmitHandler}>
           Calculate
         </Button>
       </form>
