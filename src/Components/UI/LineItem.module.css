@@ -1,6 +1,6 @@
 .line-item {
   display: grid;
-  grid-template-columns: .8fr .8fr;
+  grid-template-columns: .7fr .4fr;
   justify-items: end;
 }
 
