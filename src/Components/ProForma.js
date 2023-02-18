@@ -1,10 +1,10 @@
-import react, {useState} from 'react';
+import react, { useState } from "react";
 
 import styles from "./ProForma.module.css";
 import Card from "./UI/Card";
 import InputForm from "./InputForm/InputForm";
 import CalculatedOutput from "./CalculatedOutput/CalculatedOutput";
-import MonthlyPayment, { FirstYearLoanCalc } from '../Helpers/Math';
+import MonthlyPayment, { FirstYearLoanCalc } from "../Helpers/Math";
 
 const ProForma = (props) => {
   const [noi, setNOI] = useState(0);
@@ -19,15 +19,19 @@ const ProForma = (props) => {
   const onSubmitHandler = (data) => {
     let interestRate = +data.interestRate;
     let loanYears = +data.loanYears;
-    let debtAmount = data.investmentAmount * (100 - data.equity) / 100;
-    let firstYearLoanValues = FirstYearLoanCalc(debtAmount, interestRate, loanYears);
+    let debtAmount = (data.investmentAmount * (100 - data.equity)) / 100;
+    let firstYearLoanValues = FirstYearLoanCalc(
+      debtAmount,
+      interestRate,
+      loanYears
+    );
     let noi = data.rentalIncome - data.expenses;
     setDebtAmount(debtAmount);
     setInvestmentAmount(data.investmentAmount);
-    setNOI(noi)
-    setCapRate(noi / data.investmentAmount * 100);
-    setEquity(data.investmentAmount * data.equity / 100);
-    setMonthlyPayment(MonthlyPayment(debtAmount, interestRate, loanYears))
+    setNOI(noi);
+    setCapRate((noi / data.investmentAmount) * 100);
+    setEquity((data.investmentAmount * data.equity) / 100);
+    setMonthlyPayment(MonthlyPayment(debtAmount, interestRate, loanYears));
     setFirstYearInterest(firstYearLoanValues.interestPayment);
     setFirstYearPrincipal(firstYearLoanValues.principalPayment);
   };
@@ -37,18 +41,20 @@ const ProForma = (props) => {
       <Card>
         <InputForm onSubmit={onSubmitHandler} />
       </Card>
-      <Card>
-        <CalculatedOutput
-          netOperatingIncome={noi}
-          capitalizationRate={capRate}
-          investmentAmount={investmentAmount}
-          equity={equity}
-          debtAmount={debtAmount}
-          monthlyPayment={monthlyPayment}
-          firstYearInterest={firstYearInterest}
-          firstYearPrincipal={firstYearPrincipal}
-        />
-      </Card>
+      {investmentAmount > 0 && (
+        <Card>
+          <CalculatedOutput
+            netOperatingIncome={noi}
+            capitalizationRate={capRate}
+            investmentAmount={investmentAmount}
+            equity={equity}
+            debtAmount={debtAmount}
+            monthlyPayment={monthlyPayment}
+            firstYearInterest={firstYearInterest}
+            firstYearPrincipal={firstYearPrincipal}
+          />
+        </Card>
+      )}
     </>
   );
 };
