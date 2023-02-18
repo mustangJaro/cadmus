@@ -8,6 +8,7 @@
 .app {
   text-align: center;
   width: 80%;
+  max-width: 800px;
   padding: 32px 10%;
   flex: 1;
   min-height: calc(100vh - 64px);

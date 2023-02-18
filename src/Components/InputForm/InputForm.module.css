@@ -10,6 +10,13 @@
   row-gap: 16px;
 }
 
+@media (width < 600px){
+  .input-form {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
 .calculate-button {
   grid-column-start: 1;
   grid-column-end: 3;
