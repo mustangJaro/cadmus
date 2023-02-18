@@ -1,25 +1,44 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Input from "./Input";
 import styles from "./InputForm.module.css";
 import Button from "@mui/material/Button";
 
 const InputForm = (props) => {
-  const investmentValueRef = useRef();
-  const equityValueRef = useRef();
-  const rentalIncomeValueRef = useRef();
-  const expensesValueRef = useRef();
-  const interestRateValueRef = useRef();
-  const loanYearsValueRef = useRef();
+  const [investAmt, setInvestAmt] = useState(215000);
+  const [equity, setEquity] = useState(20);
+  const [rentalIncome, setRentalIncome] = useState(25000);
+  const [expenses, setExpenses] = useState(10500);
+  const [interestRate, setInterestRate] = useState(4.5);
+  const [loanYears, setLoanYears] = useState(30);
+
+  const equityChangeHandler = (event) => {
+    setEquity(event.target.value);
+  };
+  const rentalIncomeChangeHandler = (event) => {
+    setRentalIncome(event.target.value);
+  };
+  const expensesChangeHandler = (event) => {
+    setExpenses(event.target.value);
+  };
+  const interestRateChangeHandler = (event) => {
+    setInterestRate(event.target.value);
+  };
+  const loanYearsChangeHandler = (event) => {
+    setLoanYears(event.target.value);
+  };
+  const investAmtChangeHandler = (event) => {
+    setInvestAmt(event.target.value);
+  };
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
     props.onSubmit({
-      investmentAmount: investmentValueRef.current.value,
-      equity: equityValueRef.current.value,
-      interestRate: interestRateValueRef.current.value,
-      loanYears: loanYearsValueRef.current.value,
-      rentalIncome: rentalIncomeValueRef.current.value,
-      expenses: expensesValueRef.current.value,
+      investmentAmount: investAmt,
+      equity: equity,
+      interestRate: interestRate,
+      loanYears: loanYears,
+      rentalIncome: rentalIncome,
+      expenses: expenses,
     });
   };
 
@@ -27,32 +46,52 @@ const InputForm = (props) => {
     <div className={styles.container}>
       <form className={styles["input-form"]}>
         <Input
-          valueRef={investmentValueRef}
+          value={investAmt}
+          onChange={investAmtChangeHandler}
           label="Investment Amount"
           defaultValue="215000"
+          type="currency"
         />
-        <Input valueRef={equityValueRef} label="Equity" defaultValue="20" />
         <Input
-          valueRef={interestRateValueRef}
+          value={equity}
+          onChange={equityChangeHandler}
+          label="Equity"
+          defaultValue="20"
+          type="percent"
+        />
+        <Input
+          value={interestRate}
+          onChange={interestRateChangeHandler}
           label="Interest Rate"
           defaultValue="4.5"
+          type="percent"
         />
         <Input
-          valueRef={loanYearsValueRef}
+          value={loanYears}
+          onChange={loanYearsChangeHandler}
           label="Loan Duration, in years"
           defaultValue="30"
+          type="number"
         />
         <Input
-          valueRef={rentalIncomeValueRef}
+          value={rentalIncome}
+          onChange={rentalIncomeChangeHandler}
           label="Rental Income"
           defaultValue="25000"
+          type="currency"
         />
         <Input
-          valueRef={expensesValueRef}
+          value={expenses}
+          onChange={expensesChangeHandler}
           label="Expenses"
           defaultValue="10500"
+          type="currency"
         />
-        <Button className={styles['calculate-button']} variant="contained" onClick={onSubmitHandler}>
+        <Button
+          className={styles["calculate-button"]}
+          variant="contained"
+          onClick={onSubmitHandler}
+        >
           Calculate
         </Button>
       </form>
