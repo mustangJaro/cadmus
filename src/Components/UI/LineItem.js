@@ -15,7 +15,7 @@ const LineItem = (props) => {
   return (
     <div className={`${styles["line-item"]} ${styles[cssType]}`}>
       <Text value={props.label} />
-      <Text value={props.value} />
+      <Text value={props.value} className={`${styles["value"]}`}/>
     </div>
   );
 };
