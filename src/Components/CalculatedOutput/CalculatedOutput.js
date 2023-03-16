@@ -20,7 +20,7 @@ const CalculatedOutput = (props) => {
           label="Investment Amount"
           value={Dollars(props.investmentAmount)}
         />
-        <LineItem label="Debt Amount" value={Dollars(props.debtAmount)} />
+        <LineItem label="Debt Amount" value={Dollars(props.debtAmount * -1)} />
         <LineItem label="Equity"
           value={Dollars(props.equity)}
           type="summary" />
